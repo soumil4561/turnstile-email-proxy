@@ -1,0 +1,29 @@
+{
+	"name": "turnstile-email-proxy",
+	"version": "1.0.0",
+	"description": "A turnstile backed serverless email proxy",
+	"main": "src/index.ts",
+	"scripts": {
+		"deploy": "wrangler deploy",
+		"dev": "wrangler dev",
+		"start": "wrangler dev",
+		"test": "vitest",
+		"cf-typegen": "wrangler types"
+	},
+	"author": "Soumil Singh",
+	"license": "ISC",
+	"dependencies": {
+		"cors": "^2.8.5",
+		"express": "^5.2.1"
+	},
+	"devDependencies": {
+		"@eslint/js": "^9.39.2",
+		"@types/express": "^5.0.6",
+		"eslint": "^9.39.2",
+		"globals": "^17.0.0",
+		"jiti": "^2.6.1",
+		"typescript": "^5.9.3",
+		"typescript-eslint": "^8.52.0",
+		"wrangler": "^4.58.0"
+	}
+}
