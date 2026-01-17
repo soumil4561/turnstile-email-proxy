@@ -2,10 +2,10 @@ import { httpServerHandler } from "cloudflare:node";
 import express from "express";
 import cors from 'cors'
 import {status} from "http-status"
-import { globalErrorHandler } from "@/utils/errorHandler";
 
+import { globalErrorHandler } from "@/utils/errorHandler";
 import { handleContactEmail } from "@/handlers/contact";
-import ApiError from "./utils/ApiError";
+import ApiError from "@/utils/ApiError";
 
 const app = express();
 

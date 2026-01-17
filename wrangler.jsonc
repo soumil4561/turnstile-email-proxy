@@ -12,5 +12,16 @@
   "compatibility_date": "2026-01-11",
   "observability": {
     "enabled": true
+  },
+  "env": {
+    "local": {
+      "main": "src/index.ts"
+    },
+    "build": {
+      "main": "src/index.ts"
+    },
+    "production": {
+      "main": "dist/index.js"
+    }
   }
 }
