@@ -8,20 +8,14 @@
   "compatibility_flags": [
     "nodejs_compat"
   ],
-  "main": "src/index.ts",
+  "main": "dist/index.js",
   "compatibility_date": "2026-01-11",
   "observability": {
     "enabled": true
   },
   "env": {
-    "local": {
+    "dev": {
       "main": "src/index.ts"
-    },
-    "build": {
-      "main": "src/index.ts"
-    },
-    "production": {
-      "main": "dist/index.js"
     }
   }
 }
