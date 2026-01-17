@@ -38,7 +38,7 @@
 		"skipLibCheck": true,
 		"types": ["./worker-configuration.d.ts"],
 		"paths": {
-			"@/*": ["./*"]
+			"@/*": ["./src/*"]
 		}
 	},
 	"exclude": ["test", "node_modules"],
