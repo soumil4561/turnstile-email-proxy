@@ -7,17 +7,21 @@
 		"deploy": "wrangler deploy",
 		"dev": "wrangler dev",
 		"start": "wrangler dev",
+		"build": "wrangler build",
 		"test": "vitest",
-		"cf-typegen": "wrangler types"
+		"cf-typegen": "wrangler types",
+		"lint": "eslint src/"
 	},
 	"author": "Soumil Singh",
 	"license": "ISC",
 	"dependencies": {
 		"cors": "^2.8.5",
-		"express": "^5.2.1"
+		"express": "^5.2.1",
+		"http-status": "^2.1.0"
 	},
 	"devDependencies": {
 		"@eslint/js": "^9.39.2",
+		"@types/cors": "^2.8.19",
 		"@types/express": "^5.0.6",
 		"eslint": "^9.39.2",
 		"globals": "^17.0.0",
