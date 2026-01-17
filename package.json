@@ -7,6 +7,7 @@
 		"deploy": "wrangler deploy",
 		"dev": "wrangler dev",
 		"start": "wrangler dev",
+		"build": "wrangler build",
 		"test": "vitest",
 		"cf-typegen": "wrangler types",
 		"lint": "eslint src/"
@@ -15,10 +16,8 @@
 	"license": "ISC",
 	"dependencies": {
 		"cors": "^2.8.5",
-		"dotenv": "^17.2.3",
 		"express": "^5.2.1",
-		"http-status": "^2.1.0",
-		"winston": "^3.19.0"
+		"http-status": "^2.1.0"
 	},
 	"devDependencies": {
 		"@eslint/js": "^9.39.2",
