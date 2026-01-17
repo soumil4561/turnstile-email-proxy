@@ -4,10 +4,10 @@
 	"description": "A turnstile backed serverless email proxy",
 	"main": "src/index.ts",
 	"scripts": {
-		"deploy": "wrangler deploy --env production",
-		"dev": "wrangler dev --env local",
+		"deploy": "wrangler deploy",
+		"dev": "wrangler dev --env dev",
 		"start": "wrangler start",
-		"build": "wrangler build --env=build",
+		"build": "wrangler build --env dev",
 		"test": "vitest",
 		"cf-typegen": "wrangler types",
 		"lint": "eslint src/"
