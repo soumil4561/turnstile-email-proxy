@@ -1,41 +1,45 @@
-import { httpServerHandler } from "cloudflare:node";
-import express from "express";
-import cors from 'cors'
-import {status} from "http-status"
+import { Hono } from 'hono';
+import { cors } from 'hono/cors';
+import { env } from 'cloudflare:workers';
 
-import { globalErrorHandler } from "@/utils/errorHandler";
-import { handleContactEmail } from "@/handlers/contact";
-import ApiError from "@/utils/ApiError";
+import { handleContactEmail } from '@/handlers/contact';
+import ApiError from '@/utils/ApiError';
+import status from 'http-status/cloudflare';
+import { sendResponse } from './utils/responses';
+import { logger } from 'hono/logger';
 
-const app = express();
+const app = new Hono();
 
-const corsOptions = {
-  origin: [ "https://soumil4561.github.io", "http://localhost:3000"],
-  methods: ["GET", "POST"]
-}
+app.use(logger())
 
-app.use(cors(corsOptions))
+app.use(
+	'*',
+	cors({
+		origin: env.ALLOWED_ORIGINS.split(','),
+		allowMethods: ['GET', 'POST'],
+	}),
+);
 
-// Middleware to parse JSON bodies
-app.use(express.json());
-
-//Route Defs:
-app.post("/send-contact-email", handleContactEmail)
-
-// Health check endpoint
-app.get("/healthz", (req, res) => {
-  res.status(status.OK).send({
-    success: true,
-    data: null,
-    message: "OPERATION_COMPLETED_SUCCESSULLY",
-  })
+// Routes
+app.get("/", (c) => {
+    return sendResponse(c, status.OK, null, "OPERATION_COMPLETED_SUCCESSFULLY")
 })
 
-app.use((req, res, next) => {
-  next(new ApiError(status.NOT_FOUND, 'Not found'));
+app.post('/send-contact-email', handleContactEmail);
+
+app.get('/healthz', (c) => {
+	return sendResponse(c, status.OK, null, "OPERATION_COMPLETED_SUCCESSFULLY")
 });
 
-app.use(globalErrorHandler);
+// 404 handler
+app.notFound((c) => {
+	return sendResponse(c, status.NOT_FOUND, null, "Not Found")
+});
 
-app.listen(8080);
-export default httpServerHandler({ port: 8080 });
+// Error handler
+app.onError((err, c) => {
+	if (err instanceof ApiError) return sendResponse(c, err.statusCode, err, err.message);
+	return sendResponse(c, status.INTERNAL_SERVER_ERROR, err, err.message);
+});
+
+export default app;
