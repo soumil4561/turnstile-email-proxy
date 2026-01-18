@@ -19,11 +19,9 @@ export type TurnstileValidationResponse = {
 
 class TurnstileValidator {
 	private secretKey: string;
-	private timeout: number;
 
-	constructor(secretKey: string, timeout = 10000) {
+	constructor(secretKey: string) {
 		this.secretKey = secretKey;
-		this.timeout = timeout;
 	}
 
 	async validate(token: string, remoteip: string | null, options: TurnstileValidatorOptionsType) {

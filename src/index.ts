@@ -1,12 +1,12 @@
 import { Hono } from 'hono';
 import { cors } from 'hono/cors';
+import { logger } from 'hono/logger';
 import { env } from 'cloudflare:workers';
+import status from 'http-status/cloudflare';
 
 import { handleContactEmail } from '@/handlers/contact';
 import ApiError from '@/utils/ApiError';
-import status from 'http-status/cloudflare';
 import { sendResponse } from './utils/responses';
-import { logger } from 'hono/logger';
 
 const app = new Hono();
 
@@ -33,7 +33,7 @@ app.get('/healthz', (c) => {
 
 // 404 handler
 app.notFound((c) => {
-	return sendResponse(c, status.NOT_FOUND, null, 'Not Found');
+	return sendResponse(c, status.NOT_FOUND, null, 'NOT FOUND');
 });
 
 // Error handler
