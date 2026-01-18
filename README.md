@@ -33,7 +33,7 @@ Set up environment variables by copying `.env.example` to `.env` and filling in 
 Start the development server using Wrangler
 
 ```bash
-npm run start
+npm run dev
 ```
 
 ## Deployment
