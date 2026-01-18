@@ -10,7 +10,7 @@ import { logger } from 'hono/logger';
 
 const app = new Hono();
 
-app.use(logger())
+app.use(logger());
 
 app.use(
 	'*',
@@ -21,19 +21,19 @@ app.use(
 );
 
 // Routes
-app.get("/", (c) => {
-    return sendResponse(c, status.OK, null, "OPERATION_COMPLETED_SUCCESSFULLY")
-})
+app.get('/', (c) => {
+	return sendResponse(c, status.OK, null, 'OPERATION_COMPLETED_SUCCESSFULLY');
+});
 
 app.post('/send-contact-email', handleContactEmail);
 
 app.get('/healthz', (c) => {
-	return sendResponse(c, status.OK, null, "OPERATION_COMPLETED_SUCCESSFULLY")
+	return sendResponse(c, status.OK, null, 'OPERATION_COMPLETED_SUCCESSFULLY');
 });
 
 // 404 handler
 app.notFound((c) => {
-	return sendResponse(c, status.NOT_FOUND, null, "Not Found")
+	return sendResponse(c, status.NOT_FOUND, null, 'Not Found');
 });
 
 // Error handler

@@ -5,7 +5,7 @@ export function sendResponse(c: Context, statusCode: ContentfulStatusCode, data?
 	return c.json(
 		{
 			success: false,
-            data: data,
+			data: data,
 			message: message,
 		},
 		statusCode,

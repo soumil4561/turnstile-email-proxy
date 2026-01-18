@@ -81,10 +81,10 @@ class TurnstileValidator {
 			return result;
 		} catch (error) {
 			if (error instanceof DOMException && error.name === 'AbortError') {
-				logger.error(`Turnstile validation error: ${error}`)
+				logger.error(`Turnstile validation error: ${error}`);
 				return { success: false, error: 'Validation timeout' };
 			}
-			logger.error(`Turnstile internal error: ${error}`)
+			logger.error(`Turnstile internal error: ${error}`);
 			return { success: false, error: 'Internal error' };
 		}
 	}

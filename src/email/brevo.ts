@@ -65,9 +65,9 @@ export class BrevoEmailService implements EmailService<BrevoPayload, EmailSendRe
 			});
 
 			if (!response.ok) {
-                const errorText = await response.text();
+				const errorText = await response.text();
 				logger.error('Brevo sendEmail failed:', errorText);
-				throw new ApiError(response.status as ContentfulStatusCode, errorText|| "Brevo API failure")
+				throw new ApiError(response.status as ContentfulStatusCode, errorText || 'Brevo API failure');
 			}
 
 			const data = (await response.json()) as BrevoSendResponse;
@@ -79,7 +79,7 @@ export class BrevoEmailService implements EmailService<BrevoPayload, EmailSendRe
 			};
 		} catch (error) {
 			logger.error('Brevo sendEmail failed:', error);
-			throw new ApiError(status.INTERNAL_SERVER_ERROR, String(error))
+			throw new ApiError(status.INTERNAL_SERVER_ERROR, String(error));
 		}
 	}
 }

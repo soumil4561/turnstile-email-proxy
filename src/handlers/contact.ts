@@ -17,7 +17,7 @@ export async function handleContactEmail(c: Context) {
 		throw new ApiError(status.FORBIDDEN, 'turnstile captcha check failed');
 	}
 
-    logger.debug("Turnstile validation successul: ",  turnstileResult)
+	logger.debug('Turnstile validation successul: ', turnstileResult);
 
 	const textContent = `New Message from your portfolio:
      Sender Name: ${body.name}
@@ -32,7 +32,7 @@ export async function handleContactEmail(c: Context) {
 		textContent: textContent,
 	});
 
-    logger.debug("Email Sent via brevo successully ",  brevoResult)
+	logger.debug('Email Sent via brevo successully ', brevoResult);
 
 	//then send back the response
 	if (brevoResult.success) {
