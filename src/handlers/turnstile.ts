@@ -1,3 +1,4 @@
+import { logger } from '@/utils/logger';
 import { env } from 'cloudflare:workers';
 
 export type TurnstileValidatorOptionsType = {
@@ -35,27 +36,23 @@ class TurnstileValidator {
 			return { success: false, error: 'Token too long' };
 		}
 
-		// Prepare request
-		const controller = new AbortController();
-		const timeoutId = setTimeout(() => controller.abort(), this.timeout);
-
 		try {
-			const formData = new FormData();
-			formData.append('secret', this.secretKey);
-			formData.append('response', token);
+			const body = new URLSearchParams({
+				secret: this.secretKey,
+				response: token,
+			});
 
 			if (remoteip) {
-				formData.append('remoteip', remoteip);
+				body.append('remoteip', remoteip);
 			}
 
 			if (options.idempotencyKey) {
-				formData.append('idempotency_key', options.idempotencyKey);
+				body.append('idempotency_key', options.idempotencyKey);
 			}
 
 			const response = await fetch(env.TURNSTILE_SITEVERIFY_HOST, {
 				method: 'POST',
-				body: formData,
-				signal: controller.signal,
+				body: body,
 			});
 
 			const result: TurnstileValidationResponse = await response.json();
@@ -84,13 +81,11 @@ class TurnstileValidator {
 			return result;
 		} catch (error) {
 			if (error instanceof DOMException && error.name === 'AbortError') {
-				console.error(`Turnstile validation error: ${error}`)
+				logger.error(`Turnstile validation error: ${error}`)
 				return { success: false, error: 'Validation timeout' };
 			}
-			console.error(`Turnstile internal error: ${error}`)
+			logger.error(`Turnstile internal error: ${error}`)
 			return { success: false, error: 'Internal error' };
-		} finally {
-			clearTimeout(timeoutId);
 		}
 	}
 }

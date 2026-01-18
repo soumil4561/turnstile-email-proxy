@@ -4,18 +4,26 @@
  */
 {
 	"name": "turnstile-email-proxy",
-  "$schema": "./node_modules/wrangler/config-schema.json",
-  "compatibility_flags": [
-    "nodejs_compat"
-  ],
-  "main": "dist/index.js",
-  "compatibility_date": "2026-01-11",
-  "observability": {
-    "enabled": true
-  },
-  "env": {
-    "dev": {
-      "main": "src/index.ts"
-    }
-  }
+	"$schema": "./node_modules/wrangler/config-schema.json",
+	"compatibility_flags": ["nodejs_compat"],
+	"main": "dist/index.js",
+	"compatibility_date": "2026-01-11",
+	"observability": {
+		"enabled": true,
+	},
+	"env": {
+		"dev": {
+			"main": "src/index.ts",
+			"vars": {
+				"NODE_ENV": "development",
+				"ALLOWED_ORIGINS": "http://localhost:3000",
+				"LOG_LEVEL": "debug",
+			},
+		},
+	},
+	"vars": {
+		"NODE_ENV": "production",
+		"ALLOWED_ORIGINS": "https://soumil4561.github.io",
+		"LOG_LEVEL": "debug",
+	},
 }

@@ -15,8 +15,7 @@
 	"author": "Soumil Singh",
 	"license": "ISC",
 	"dependencies": {
-		"cors": "^2.8.5",
-		"express": "^5.2.1",
+		"hono": "^4.11.4",
 		"http-status": "^2.1.0"
 	},
 	"devDependencies": {

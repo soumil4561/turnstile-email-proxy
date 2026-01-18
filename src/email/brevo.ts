@@ -2,6 +2,8 @@ import { env } from 'cloudflare:workers';
 import { EmailService } from './email';
 import ApiError from '@/utils/ApiError';
 import status from 'http-status';
+import { logger } from '@/utils/logger';
+import { ContentfulStatusCode } from 'hono/utils/http-status';
 
 interface BrevoPayload {
 	recipientName: string;
@@ -64,7 +66,8 @@ export class BrevoEmailService implements EmailService<BrevoPayload, EmailSendRe
 
 			if (!response.ok) {
                 const errorText = await response.text();
-				throw new ApiError(response.status, errorText|| "Brevo API failure")
+				logger.error('Brevo sendEmail failed:', errorText);
+				throw new ApiError(response.status as ContentfulStatusCode, errorText|| "Brevo API failure")
 			}
 
 			const data = (await response.json()) as BrevoSendResponse;
@@ -75,7 +78,7 @@ export class BrevoEmailService implements EmailService<BrevoPayload, EmailSendRe
 				messageId: data.messageId,
 			};
 		} catch (error) {
-			console.error('Brevo sendEmail failed:', error);
+			logger.error('Brevo sendEmail failed:', error);
 			throw new ApiError(status.INTERNAL_SERVER_ERROR, String(error))
 		}
 	}
