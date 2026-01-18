@@ -6,7 +6,6 @@
 	"scripts": {
 		"deploy": "wrangler deploy",
 		"dev": "wrangler dev --env dev",
-		"start": "wrangler start",
 		"build": "wrangler build --env dev",
 		"test": "vitest",
 		"cf-typegen": "wrangler types",
