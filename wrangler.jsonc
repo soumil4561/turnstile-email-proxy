@@ -18,6 +18,7 @@
 				"NODE_ENV": "development",
 				"ALLOWED_ORIGINS": "http://localhost:3000",
 				"LOG_LEVEL": "debug",
+				"EMAIL_PROVIDER": "brevo",
 			},
 		},
 	},
@@ -25,5 +26,6 @@
 		"NODE_ENV": "production",
 		"ALLOWED_ORIGINS": "https://soumil4561.github.io",
 		"LOG_LEVEL": "info",
+		"EMAIL_PROVIDER": "brevo",
 	},
 }

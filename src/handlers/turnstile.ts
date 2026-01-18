@@ -19,11 +19,9 @@ export type TurnstileValidationResponse = {
 
 class TurnstileValidator {
 	private secretKey: string;
-	private timeout: number;
 
-	constructor(secretKey: string, timeout = 10000) {
+	constructor(secretKey: string) {
 		this.secretKey = secretKey;
-		this.timeout = timeout;
 	}
 
 	async validate(token: string, remoteip: string | null, options: TurnstileValidatorOptionsType) {
@@ -81,10 +79,10 @@ class TurnstileValidator {
 			return result;
 		} catch (error) {
 			if (error instanceof DOMException && error.name === 'AbortError') {
-				logger.error(`Turnstile validation error: ${error}`)
+				logger.error(`Turnstile validation error: ${error}`);
 				return { success: false, error: 'Validation timeout' };
 			}
-			logger.error(`Turnstile internal error: ${error}`)
+			logger.error(`Turnstile internal error: ${error}`);
 			return { success: false, error: 'Internal error' };
 		}
 	}
