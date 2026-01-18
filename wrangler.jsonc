@@ -24,6 +24,6 @@
 	"vars": {
 		"NODE_ENV": "production",
 		"ALLOWED_ORIGINS": "https://soumil4561.github.io",
-		"LOG_LEVEL": "debug",
+		"LOG_LEVEL": "info",
 	},
 }
