@@ -7,6 +7,7 @@ import ApiError from '@/utils/ApiError';
 import getEmailService from '@/email/email';
 import { sendResponse } from '@/utils/responses';
 import { logger } from '@/utils/logger';
+import { codes, messages } from '@/utils/constants';
 
 export async function handleContactEmail(c: Context) {
 	const emailService = getEmailService();
@@ -16,7 +17,7 @@ export async function handleContactEmail(c: Context) {
 	const turnstileResult = await validator.validate(body.token, null, {});
 	if (!turnstileResult.success) {
 		logger.error('Turnstile error: ', turnstileResult);
-		throw new ApiError(status.FORBIDDEN, 'turnstile captcha check failed');
+		throw new ApiError(status.FORBIDDEN, codes.TurnstileCaptchaFailed, messages.TurnstileCaptchaFailed);
 	}
 
 	logger.debug('Turnstile validation successul: ', turnstileResult);
@@ -38,8 +39,8 @@ export async function handleContactEmail(c: Context) {
 
 	//then send back the response
 	if (emailResult.success) {
-		return sendResponse(c, status.OK, emailResult, 'EMAIL SENT SUCCESSFULLY');
+		return sendResponse(c, status.OK, codes.EmailSendSuccess, emailResult, messages.EmailSendSuccess);
 	} else {
-		return sendResponse(c, status.INTERNAL_SERVER_ERROR, emailResult.error, 'UNABLE TO SEND EMAIL');
+		return sendResponse(c, status.INTERNAL_SERVER_ERROR, codes.EmailSendError, emailResult.error, messages.EmailSendError);
 	}
 }
