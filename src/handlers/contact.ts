@@ -39,7 +39,7 @@ export async function handleContactEmail(c: Context) {
 
 	//then send back the response
 	if (emailResult.success) {
-		return sendResponse(c, status.OK, codes.EmailSendSuccess, emailResult, messages.EmailSendError);
+		return sendResponse(c, status.OK, codes.EmailSendSuccess, emailResult, messages.EmailSendSuccess);
 	} else {
 		return sendResponse(c, status.INTERNAL_SERVER_ERROR, codes.EmailSendError, emailResult.error, messages.EmailSendError);
 	}
