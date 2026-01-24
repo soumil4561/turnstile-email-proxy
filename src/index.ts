@@ -6,7 +6,8 @@ import status from 'http-status/cloudflare';
 
 import { handleContactEmail } from '@/handlers/contact';
 import ApiError from '@/utils/ApiError';
-import { sendResponse } from './utils/responses';
+import { codes, messages } from '@/utils/constants';
+import { sendResponse } from '@/utils/responses';
 
 const app = new Hono();
 
@@ -22,24 +23,24 @@ app.use(
 
 // Routes
 app.get('/', (c) => {
-	return sendResponse(c, status.OK, null, 'OPERATION_COMPLETED_SUCCESSFULLY');
+	return sendResponse(c, status.OK, codes.Success, null, messages.Success);
 });
 
 app.post('/send-contact-email', handleContactEmail);
 
 app.get('/healthz', (c) => {
-	return sendResponse(c, status.OK, null, 'OPERATION_COMPLETED_SUCCESSFULLY');
+	return sendResponse(c, status.OK, codes.Success, null, messages.Success);
 });
 
 // 404 handler
 app.notFound((c) => {
-	return sendResponse(c, status.NOT_FOUND, null, 'NOT FOUND');
+	return sendResponse(c, status.NOT_FOUND, codes.NotFound, null, messages.NotFound);
 });
 
 // Error handler
 app.onError((err, c) => {
-	if (err instanceof ApiError) return sendResponse(c, err.statusCode, err, err.message);
-	return sendResponse(c, status.INTERNAL_SERVER_ERROR, err, err.message);
+	if (err instanceof ApiError) return sendResponse(c, err.statusCode, err.errorCode, err, err.message);
+	return sendResponse(c, status.INTERNAL_SERVER_ERROR, codes.InternalServerError, err, err.message);
 });
 
 export default app;
