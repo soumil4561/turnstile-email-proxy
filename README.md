@@ -44,7 +44,7 @@ To deploy this project, one can simply run the below command:
 ```bash
 npm run deploy
 ```
-and after Cloudflare authentication, the project should be deployed successully.
+and after Cloudflare's authentication, the project should be deployed successully.
 
 Make sure to setup the secrets in the project or using `wrangler secret put <SECRET_NAME>` command before deploying.
 
